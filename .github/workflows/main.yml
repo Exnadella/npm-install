@@ -51,6 +51,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+
       - run: echo $GITHUB_SHA
 
       # trying to use this action to install dependencies for semantic release
