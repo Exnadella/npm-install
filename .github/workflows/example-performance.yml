@@ -5,7 +5,7 @@ jobs:
   cache1:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       # look at fast this action installs a single dependency
       - uses: bahmutov/npm-install@HEAD
         with:
@@ -17,9 +17,9 @@ jobs:
   cache2:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Caching
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.npm
           key: chalk-v2
