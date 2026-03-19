@@ -35,6 +35,15 @@ jobs:
     runs-on: ubuntu-22.04
     name: release
     needs: build-and-test
+    permissions:
+      # allow the release step to comment on
+      # issues, pull requests, and write to the repo
+      contents: write
+      issues: write
+      pull-requests: write
+      # Required for OIDC to let NPM registry know
+      # that this workflow is trusted
+      id-token: write
     # only release from the master branch
     if: github.ref == 'refs/heads/master'
     steps:
@@ -48,7 +57,7 @@ jobs:
 
       # https://github.com/cycjimmy/semantic-release-action
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
         with:
           branch: master
@@ -57,7 +66,6 @@ jobs:
             @semantic-release/changelog
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push updates to branch for major version
         # if there is a new version published, let's say v1.2.3
